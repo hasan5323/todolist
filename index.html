@@ -3,6 +3,9 @@
 <head>
     <title>To-Do List</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -19,6 +22,10 @@
             list-style-type: none;
             padding: 0;
         }
+        /* ul {
+            margin: 0;
+            padding: 0;
+        } */
 
         li {
             margin-bottom: 5px;
@@ -66,7 +73,6 @@
             if (task !== "") {
                 todoList.push(task);
                 newTaskInput.value = "";
-
                 displayTasks();
             }
         }
@@ -77,7 +83,10 @@
                 displayTasks();
             }
         }
-
+        function checkTask(index) {
+            document.getElementById("taskList").classList.toggle('selesai');
+            // displayTasks();
+        }
         displayTasks(); // Initial display
     </script>
 </body>
