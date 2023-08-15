@@ -9,12 +9,14 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: burlywood;
+
         }
         .container {
             border: 1px solid seagreen;
             width: 300px;
             height: 500px;
-            margin: auto;
+            margin: 0 auto;
             padding: 0 10px;
         }
 
@@ -22,10 +24,10 @@
             list-style-type: none;
             padding: 0;
         }
-        /* ul {
+        ul {
             margin: 0;
             padding: 0;
-        } */
+        }
 
         li {
             margin-bottom: 5px;
@@ -41,53 +43,54 @@
 </head>
 <body>
     <div class="container">
-    <h1>To-Do List</h1>
-    <div>
-        <input type="text" id="newTask" placeholder="Enter task">
-        <button onclick="addTask()">Add Task</button>
-    </div>
-    <ul id="taskList">
-    </ul>
+        <h1>To-Do List</h1>
+        <div>
+            <input type="text" id="newTask" placeholder="Enter task">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList">
+        </ul>
     </div>
     <script>
-        let todoList = [];
+        const todoList = [];
 
 
-        function displayTasks() {
-            const taskListElement = document.getElementById("taskList");
-            taskListElement.innerHTML = "";
+function displayTasks() {
+    const taskListElement = document.getElementById("taskList");
+    taskListElement.innerHTML = "";
 
-            todoList.forEach((task, index) => {
-                const listItem = document.createElement("li");
-                listItem.textContent = task;
-                listItem.innerHTML += `<button onclick="checkTask(${index})">check</button>`;
-                listItem.innerHTML += `<button onclick="removeTask(${index})">Remove</button>`;
-                taskListElement.appendChild(listItem);
-            });
-        }
+    todoList.forEach((task, index) => {
+        const listItem = document.createElement("li");
+        listItem.id=task.id.toString()
+        listItem.innerHTML += `<span>${task.name}</span>`;
+        listItem.innerHTML += `<button onclick="checkTask(${index})">check</button>`;
+        listItem.innerHTML += `<button onclick="removeTask(${index})">Remove</button>`;
+        taskListElement.appendChild(listItem);
+    });
+}
 
-        function addTask() {
-            const newTaskInput = document.getElementById("newTask");
-            const task = newTaskInput.value.trim();
+function addTask() {
+    const newTaskInput = document.getElementById("newTask");
+    const task = newTaskInput.value.trim();
 
-            if (task !== "") {
-                todoList.push(task);
-                newTaskInput.value = "";
-                displayTasks();
-            }
-        }
+    if (task !== "") {
+        todoList.push({name: task, id: Math.random()});
+        newTaskInput.value = "";
+        displayTasks();
+    }
+}
 
-        function removeTask(index) {
-            if (index >= 0 && index < todoList.length) {
-                todoList.splice(index, 1);
-                displayTasks();
-            }
-        }
-        function checkTask(index) {
-            document.getElementById("taskList").classList.toggle('selesai');
-            // displayTasks();
-        }
-        displayTasks(); // Initial display
+function removeTask(index) {
+    if (index >= 0 && index < todoList.length) {
+        todoList.splice(index, 1);
+        displayTasks();
+    }
+}
+
+function checkTask(index) {
+    document.getElementById(todoList[index].id).classList.toggle('selesai');
+}
+displayTasks(); // Initial display
     </script>
 </body>
 </html>
